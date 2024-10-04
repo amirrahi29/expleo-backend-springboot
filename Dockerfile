@@ -7,6 +7,11 @@ WORKDIR /app
 # Copy the Maven wrapper and pom.xml to download dependencies
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
+
+# Ensure that the Maven wrapper has executable permissions
+RUN chmod +x mvnw
+
+# Download dependencies
 RUN ./mvnw dependency:go-offline
 
 # Copy the entire project
@@ -15,8 +20,8 @@ COPY . .
 # Build the project and create the JAR file
 RUN ./mvnw clean package
 
-# Copy the JAR file from the target directory to the Docker image
-# Using wildcard to match any JAR in the target directory
+# Verify the JAR file is generated and then copy it
+RUN ls target/  # Verify the contents of the target directory
 COPY target/*.jar expleo-assignment-file.jar
 
 # Expose the port the app runs on
