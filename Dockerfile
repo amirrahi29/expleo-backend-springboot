@@ -1,5 +1,4 @@
-# First stage: Build the application
-FROM maven:3.8.6-openjdk-17 AS build
+FROM openjdk:17
 WORKDIR /app
 
 # Copy the pom.xml and the Maven wrapper first to cache dependencies
