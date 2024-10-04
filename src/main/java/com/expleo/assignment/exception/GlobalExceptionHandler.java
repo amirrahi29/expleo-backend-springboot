@@ -12,20 +12,20 @@ import com.expleo.assignment.dto.BaseResponseDTO;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<BaseResponseDTO> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        BaseResponseDTO response = new BaseResponseDTO(false, "Invalid input: " + ex.getValue(), null);
+    public ResponseEntity<BaseResponseDTO<Void>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        BaseResponseDTO<Void> response = new BaseResponseDTO<>(false, "Invalid input: " + ex.getValue(), null);
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<BaseResponseDTO> handleResourceNotFound(NoResourceFoundException ex) {
-        BaseResponseDTO response = new BaseResponseDTO(false, "Resource not found: " + ex.getMessage(), null);
+    public ResponseEntity<BaseResponseDTO<Void>> handleResourceNotFound(NoResourceFoundException ex) {
+        BaseResponseDTO<Void> response = new BaseResponseDTO<>(false, "Resource not found: " + ex.getMessage(), null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<BaseResponseDTO> handleGenericException(Exception ex) {
-        BaseResponseDTO response = new BaseResponseDTO(false, "An error occurred: " + ex.getMessage(), null);
+    public ResponseEntity<BaseResponseDTO<Void>> handleGenericException(Exception ex) {
+        BaseResponseDTO<Void> response = new BaseResponseDTO<>(false, "An error occurred: " + ex.getMessage(), null);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
