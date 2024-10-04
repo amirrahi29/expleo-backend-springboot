@@ -12,11 +12,12 @@ RUN ./mvnw dependency:go-offline
 # Copy the entire project
 COPY . .
 
-# Build the project
+# Build the project and create the JAR file
 RUN ./mvnw clean package
 
-# Copy the JAR file to the Docker image
-COPY target/expleo-assignment-file.jar expleo-assignment-file.jar
+# Copy the JAR file from the target directory to the Docker image
+# Using wildcard to handle dynamic JAR names
+COPY target/*.jar expleo-assignment-file.jar
 
 # Expose the port the app runs on
 EXPOSE 8080
