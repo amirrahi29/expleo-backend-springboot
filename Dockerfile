@@ -16,7 +16,7 @@ COPY . .
 RUN ./mvnw clean package
 
 # Copy the JAR file from the target directory to the Docker image
-# Using wildcard to handle dynamic JAR names
+# Using wildcard to match any JAR in the target directory
 COPY target/*.jar expleo-assignment-file.jar
 
 # Expose the port the app runs on
